@@ -1,0 +1,559 @@
+<section class="calc-section" id="calc-pint-calculator">
+  <style>
+    .calc-section {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 40px 16px;
+      background: #0B0E1A;
+      color: #E8EAF2;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .calc-section *, .calc-section *::before, .calc-section *::after { box-sizing: border-box; }
+
+    .calc-inner { max-width: 480px; margin: 0 auto; }
+
+    .calc-kicker {
+      margin: 0 0 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #F2A93B;
+    }
+    .calc-title {
+      margin: 0 0 8px;
+      font-size: 26px;
+      line-height: 1.15;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+    }
+    .calc-sub {
+      margin: 0 0 20px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #8A91B4;
+    }
+
+    .calc-card {
+      background: #141829;
+      border: 1px solid rgba(138, 145, 180, 0.14);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    /* ---- Sliders ---- */
+    .calc-field { margin-bottom: 22px; }
+    .calc-field:last-child { margin-bottom: 4px; }
+
+    .calc-field-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .calc-field-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #8A91B4;
+      letter-spacing: 0.02em;
+    }
+    .calc-field-value {
+      font-size: 17px;
+      font-weight: 800;
+      color: #FFFFFF;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .calc-field-tag {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #F2A93B;
+      background: rgba(242, 169, 59, 0.12);
+      border: 1px solid rgba(242, 169, 59, 0.3);
+      vertical-align: middle;
+      transform: translateY(-1px);
+    }
+
+    .calc-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      display: block;
+      width: 100%;
+      height: 6px;
+      margin: 8px 0 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #0065BF 0%, #2E8BE0 var(--calc-fill, 50%), #232845 var(--calc-fill, 50%), #232845 100%);
+      outline: none;
+      cursor: pointer;
+      touch-action: pan-y;
+    }
+    .calc-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #FFD083, #F2A93B 60%, #D88E1F);
+      border: 2px solid #0B0E1A;
+      box-shadow: 0 0 0 2px rgba(242, 169, 59, 0.55), 0 4px 10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .calc-slider::-webkit-slider-thumb:active {
+      transform: scale(1.15);
+      box-shadow: 0 0 0 6px rgba(242, 169, 59, 0.2), 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+    .calc-slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #FFD083, #F2A93B 60%, #D88E1F);
+      border: 2px solid #0B0E1A;
+      box-shadow: 0 0 0 2px rgba(242, 169, 59, 0.55), 0 4px 10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.15s ease;
+    }
+    .calc-slider::-moz-range-thumb:active { transform: scale(1.15); }
+    .calc-slider::-moz-range-track { background: transparent; }
+    .calc-slider:focus-visible {
+      box-shadow: 0 0 0 3px rgba(0, 101, 191, 0.45);
+    }
+
+    .calc-field-range {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 7px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: rgba(138, 145, 180, 0.6);
+    }
+
+    /* ---- Results ---- */
+    .calc-results {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .calc-stat {
+      background: #141829;
+      border: 1px solid rgba(138, 145, 180, 0.14);
+      border-radius: 16px;
+      padding: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+    .calc-stat--hero {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #141829 0%, #18204A 60%, #0E2A52 100%);
+      border-color: rgba(0, 101, 191, 0.45);
+    }
+    .calc-stat--hero::after {
+      content: "🍺";
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%) rotate(12deg);
+      font-size: 52px;
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .calc-stat-label {
+      margin: 0 0 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8A91B4;
+    }
+    .calc-stat-value {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 800;
+      color: #FFFFFF;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+    .calc-stat--hero .calc-stat-value { font-size: 38px; color: #F2A93B; }
+    .calc-stat-note { margin: 4px 0 0; font-size: 11px; color: #8A91B4; }
+
+    /* ---- Equivalents ---- */
+    .calc-equiv-title {
+      margin: 0 0 12px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8A91B4;
+    }
+    .calc-equiv-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+    }
+    .calc-equiv-row + .calc-equiv-row { border-top: 1px solid rgba(138, 145, 180, 0.12); }
+    .calc-equiv-icon {
+      flex: 0 0 auto;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      border-radius: 12px;
+      background: rgba(0, 101, 191, 0.16);
+      border: 1px solid rgba(0, 101, 191, 0.35);
+    }
+    .calc-equiv-text { flex: 1; min-width: 0; }
+    .calc-equiv-big {
+      display: block;
+      font-size: 16px;
+      font-weight: 800;
+      color: #FFFFFF;
+      font-variant-numeric: tabular-nums;
+    }
+    .calc-equiv-small {
+      display: block;
+      font-size: 11.5px;
+      color: #8A91B4;
+      line-height: 1.4;
+      margin-top: 1px;
+    }
+
+    /* ---- Share line ---- */
+    .calc-share {
+      background: #141829;
+      border: 1px dashed rgba(242, 169, 59, 0.45);
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .calc-share-line {
+      margin: 0 0 12px;
+      font-size: 14.5px;
+      font-weight: 600;
+      line-height: 1.55;
+      color: #E8EAF2;
+      word-wrap: break-word;
+    }
+    .calc-share-line strong { color: #F2A93B; font-weight: 800; }
+    .calc-copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: 100%;
+      justify-content: center;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 12px;
+      background: #0065BF;
+      color: #FFFFFF;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+    .calc-copy-btn:hover { background: #1577d1; }
+    .calc-copy-btn:active { transform: scale(0.98); }
+    .calc-copy-btn.calc-copied { background: #1d8a4e; }
+
+    .calc-footnote {
+      margin: 14px 2px 0;
+      font-size: 10.5px;
+      line-height: 1.5;
+      color: rgba(138, 145, 180, 0.65);
+    }
+
+    @media (min-width: 420px) {
+      .calc-title { font-size: 29px; }
+    }
+  </style>
+
+  <div class="calc-inner">
+    <p class="calc-kicker">No Scotland, No Party</p>
+    <h2 class="calc-title">The Tartan Army Pint Calculator</h2>
+    <p class="calc-sub">How much will Scotland's traveling support pour into American bar tills this summer? Drag the sliders. Brace yourself.</p>
+
+    <div class="calc-card" aria-label="Calculator inputs">
+      <div class="calc-field">
+        <div class="calc-field-head">
+          <span class="calc-field-label">Traveling fans</span>
+          <span class="calc-field-value" id="calc-val-fans">30,000</span>
+        </div>
+        <input class="calc-slider" id="calc-in-fans" type="range" min="5000" max="100000" step="1000" value="30000" aria-label="Number of traveling fans">
+        <div class="calc-field-range"><span>5K</span><span>100K</span></div>
+      </div>
+
+      <div class="calc-field">
+        <div class="calc-field-head">
+          <span class="calc-field-label">Pints per fan, per day</span>
+          <span class="calc-field-value"><span id="calc-val-pints">6</span><span class="calc-field-tag" id="calc-tag-pints">Solid Shift</span></span>
+        </div>
+        <input class="calc-slider" id="calc-in-pints" type="range" min="1" max="12" step="1" value="6" aria-label="Pints per fan per day">
+        <div class="calc-field-range"><span>1</span><span>12</span></div>
+      </div>
+
+      <div class="calc-field">
+        <div class="calc-field-head">
+          <span class="calc-field-label">Days in the USA</span>
+          <span class="calc-field-value" id="calc-val-days">10</span>
+        </div>
+        <input class="calc-slider" id="calc-in-days" type="range" min="3" max="21" step="1" value="10" aria-label="Days in the USA">
+        <div class="calc-field-range"><span>3</span><span>21</span></div>
+      </div>
+
+      <div class="calc-field">
+        <div class="calc-field-head">
+          <span class="calc-field-label">Average price per pint</span>
+          <span class="calc-field-value" id="calc-val-price">$12.00</span>
+        </div>
+        <input class="calc-slider" id="calc-in-price" type="range" min="7" max="18" step="0.5" value="12" aria-label="Average price per pint in dollars">
+        <div class="calc-field-range"><span>$7</span><span>$18</span></div>
+      </div>
+    </div>
+
+    <div class="calc-results" aria-live="polite">
+      <div class="calc-stat calc-stat--hero">
+        <p class="calc-stat-label">Total pints sunk</p>
+        <p class="calc-stat-value" id="calc-out-pints">0</p>
+        <p class="calc-stat-note" id="calc-out-pints-exact"></p>
+      </div>
+      <div class="calc-stat">
+        <p class="calc-stat-label">Total spend</p>
+        <p class="calc-stat-value" id="calc-out-usd">$0</p>
+      </div>
+      <div class="calc-stat">
+        <p class="calc-stat-label">Back home that's</p>
+        <p class="calc-stat-value" id="calc-out-gbp">£0</p>
+      </div>
+    </div>
+
+    <div class="calc-card">
+      <p class="calc-equiv-title">Which is roughly…</p>
+      <div class="calc-equiv-row">
+        <div class="calc-equiv-icon">🏊</div>
+        <div class="calc-equiv-text">
+          <span class="calc-equiv-big" id="calc-out-pools">0 Olympic pools</span>
+          <span class="calc-equiv-small">of beer (one pool holds ~4.4M pints)</span>
+        </div>
+      </div>
+      <div class="calc-equiv-row">
+        <div class="calc-equiv-icon">⛰️</div>
+        <div class="calc-equiv-text">
+          <span class="calc-equiv-big" id="calc-out-nevis">0× Ben Nevis</span>
+          <span class="calc-equiv-small">if you stacked every pint glass (15cm each vs 1,345m of mountain)</span>
+        </div>
+      </div>
+      <div class="calc-equiv-row">
+        <div class="calc-equiv-icon">🏟️</div>
+        <div class="calc-equiv-text">
+          <span class="calc-equiv-big" id="calc-out-sofi">0%</span>
+          <span class="calc-equiv-small">of SoFi Stadium's entire $15M projected World Cup beer sales</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-share">
+      <p class="calc-share-line" id="calc-share-line"></p>
+      <button class="calc-copy-btn" id="calc-copy-btn" type="button">Copy the damage 📋</button>
+    </div>
+
+    <p class="calc-footnote">Pure pub science. Exchange rate fixed at $1.27/£. Drink responsibly — pace yourself, it's a group stage, not a sprint.</p>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* ================= TUNABLE DATA CONSTANTS ================= */
+      var CALC_CONSTANTS = {
+        USD_PER_GBP: 1.27,                 // exchange rate, $ per £
+        PINTS_PER_OLYMPIC_POOL: 4400000,   // 568ml pints in a 2.5M-litre pool
+        PINT_GLASS_HEIGHT_M: 0.15,         // UK pint glass ≈ 15cm tall
+        BEN_NEVIS_HEIGHT_M: 1345,          // summit height in metres
+        SOFI_BEER_SALES_USD: 15000000,     // SoFi's projected WC beer sales
+        ANIM_MS: 550                       // count-up animation duration
+      };
+      /* ========================================================== */
+
+      var PINT_TAGS = [
+        [1, "Sunday Sipper"],
+        [2, "Designated Driver"],
+        [3, "Easing In"],
+        [5, "Solid Shift"],
+        [7, "Big Night"],
+        [9, "Hold My Sporran"],
+        [10, "Full Tartan"]
+      ];
+
+      var root = document.getElementById("calc-pint-calculator");
+      function $(id) { return root.querySelector("#" + id); }
+
+      var inputs = {
+        fans: $("calc-in-fans"),
+        pints: $("calc-in-pints"),
+        days: $("calc-in-days"),
+        price: $("calc-in-price")
+      };
+
+      var els = {
+        valFans: $("calc-val-fans"),
+        valPints: $("calc-val-pints"),
+        tagPints: $("calc-tag-pints"),
+        valDays: $("calc-val-days"),
+        valPrice: $("calc-val-price"),
+        outPints: $("calc-out-pints"),
+        outPintsExact: $("calc-out-pints-exact"),
+        outUsd: $("calc-out-usd"),
+        outGbp: $("calc-out-gbp"),
+        outPools: $("calc-out-pools"),
+        outNevis: $("calc-out-nevis"),
+        outSofi: $("calc-out-sofi"),
+        shareLine: $("calc-share-line"),
+        copyBtn: $("calc-copy-btn")
+      };
+
+      /* ---------- formatting helpers ---------- */
+      function fmtInt(n) {
+        return Math.round(n).toLocaleString("en-US");
+      }
+      function fmtCompact(n) {
+        if (n >= 1e9) return trim1(n / 1e9) + "B";
+        if (n >= 1e6) return trim1(n / 1e6) + "M";
+        if (n >= 1e3) return trim1(n / 1e3) + "K";
+        return fmtInt(n);
+      }
+      function trim1(x) {
+        var s = (Math.round(x * 10) / 10).toFixed(1);
+        return s.replace(/\.0$/, "");
+      }
+      function pintTag(p) {
+        var tag = PINT_TAGS[0][1];
+        for (var i = 0; i < PINT_TAGS.length; i++) {
+          if (p >= PINT_TAGS[i][0]) tag = PINT_TAGS[i][1];
+        }
+        return tag;
+      }
+
+      /* ---------- core maths ---------- */
+      function compute(fans, pints, days, price) {
+        var totalPints = fans * pints * days;
+        var usd = totalPints * price;
+        return {
+          totalPints: totalPints,
+          usd: usd,
+          gbp: usd / CALC_CONSTANTS.USD_PER_GBP,
+          pools: totalPints / CALC_CONSTANTS.PINTS_PER_OLYMPIC_POOL,
+          nevis: (totalPints * CALC_CONSTANTS.PINT_GLASS_HEIGHT_M) / CALC_CONSTANTS.BEN_NEVIS_HEIGHT_M,
+          sofiPct: (usd / CALC_CONSTANTS.SOFI_BEER_SALES_USD) * 100
+        };
+      }
+
+      /* ---------- count-up animation engine ---------- */
+      var animators = {};
+      function animateTo(key, el, target, render) {
+        var prev = animators[key];
+        var from = prev ? prev.current : 0;
+        if (prev && prev.raf) cancelAnimationFrame(prev.raf);
+        if (from === target) { el.textContent = render(target); animators[key] = { current: target, raf: null }; return; }
+        var state = { current: from, raf: null };
+        animators[key] = state;
+        var start = null;
+        function frame(ts) {
+          if (start === null) start = ts;
+          var t = Math.min((ts - start) / CALC_CONSTANTS.ANIM_MS, 1);
+          var eased = 1 - Math.pow(1 - t, 3); /* ease-out cubic */
+          state.current = from + (target - from) * eased;
+          el.textContent = render(state.current);
+          if (t < 1) {
+            state.raf = requestAnimationFrame(frame);
+          } else {
+            state.current = target;
+            state.raf = null;
+            el.textContent = render(target);
+          }
+        }
+        state.raf = requestAnimationFrame(frame);
+      }
+
+      /* ---------- slider track fill ---------- */
+      function paintFill(input) {
+        var min = parseFloat(input.min), max = parseFloat(input.max), v = parseFloat(input.value);
+        input.style.setProperty("--calc-fill", (((v - min) / (max - min)) * 100).toFixed(2) + "%");
+      }
+
+      /* ---------- main update ---------- */
+      function update() {
+        var fans = parseFloat(inputs.fans.value);
+        var pints = parseFloat(inputs.pints.value);
+        var days = parseFloat(inputs.days.value);
+        var price = parseFloat(inputs.price.value);
+
+        els.valFans.textContent = fmtInt(fans);
+        els.valPints.textContent = String(pints);
+        els.tagPints.textContent = pintTag(pints);
+        els.valDays.textContent = String(days);
+        els.valPrice.textContent = "$" + price.toFixed(2);
+
+        var r = compute(fans, pints, days, price);
+
+        animateTo("pints", els.outPints, r.totalPints, fmtCompact);
+        els.outPintsExact.textContent = fmtInt(r.totalPints) + " pints, give or take a round";
+        animateTo("usd", els.outUsd, r.usd, function (v) { return "$" + fmtCompact(v); });
+        animateTo("gbp", els.outGbp, r.gbp, function (v) { return "£" + fmtCompact(v); });
+        animateTo("pools", els.outPools, r.pools, function (v) {
+          return (v >= 100 ? fmtInt(v) : v.toFixed(2)) + " Olympic pool" + (v.toFixed(2) === "1.00" ? "" : "s");
+        });
+        animateTo("nevis", els.outNevis, r.nevis, function (v) {
+          return (v >= 10 ? fmtInt(v) : v.toFixed(1)) + "× Ben Nevis";
+        });
+        animateTo("sofi", els.outSofi, r.sofiPct, function (v) {
+          return fmtInt(v) + "%";
+        });
+
+        els.shareLine.innerHTML =
+          "<strong>" + fmtInt(fans) + " Scots</strong> × " + pints + " pints × " + days +
+          " days = <strong>" + fmtCompact(r.totalPints) + " pints</strong> ($" + fmtCompact(r.usd) +
+          ") 🏴󠁧󠁢󠁳󠁣󠁴󠁿🍺";
+
+        Object.keys(inputs).forEach(function (k) { paintFill(inputs[k]); });
+      }
+
+      /* ---------- copy button ---------- */
+      els.copyBtn.addEventListener("click", function () {
+        var text = els.shareLine.textContent + " — No Scotland, No Party.";
+        function done() {
+          els.copyBtn.classList.add("calc-copied");
+          els.copyBtn.textContent = "Copied! Get it shared 🏴󠁧󠁢󠁳󠁣󠁴󠁿";
+          setTimeout(function () {
+            els.copyBtn.classList.remove("calc-copied");
+            els.copyBtn.textContent = "Copy the damage 📋";
+          }, 1800);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, done);
+        } else {
+          done();
+        }
+      });
+
+      Object.keys(inputs).forEach(function (k) {
+        inputs[k].addEventListener("input", update);
+      });
+
+      update();
+    })();
+  </script>
+</section>
