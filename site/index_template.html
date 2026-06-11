@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0B0E1A">
+<title>No Scotland, No Party — The World Cup Beer Index</title>
+<style>
+  :root{
+    --bg:#0B0E1A; --card:#141829; --card2:#1A1F36;
+    --text:#E8EAF2; --muted:#8A91B4;
+    --blue:#0065BF; --blue-soft:#2B7FD4;
+    --amber:#F2A93B; --amber-deep:#D4882A;
+    --radius:16px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5; overflow-x:hidden;
+  }
+  .wrap{max-width:480px;margin:0 auto;padding:0 18px}
+  section{padding:44px 0}
+  .kicker{
+    color:var(--amber); font-size:12px; font-weight:700;
+    text-transform:uppercase; letter-spacing:2.5px; margin-bottom:8px;
+  }
+  h2{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}
+  .sub{color:var(--muted);font-size:14.5px;margin-bottom:22px}
+
+  /* ===== TARTAN HERO ===== */
+  .tartan{
+    height:10px;
+    background:
+      repeating-linear-gradient(90deg, transparent 0 22px, rgba(242,169,59,.85) 22px 25px, transparent 25px 47px, rgba(255,255,255,.25) 47px 49px),
+      repeating-linear-gradient(0deg, #0a2540 0 7px, #0e3a63 7px 10px),
+      #0a2540;
+  }
+  header{position:relative;padding:64px 0 40px;text-align:center;overflow:hidden}
+  .saltire{
+    position:absolute;inset:0;opacity:.07;pointer-events:none;
+    background:
+      linear-gradient(45deg, transparent 47.5%, #fff 47.5% 52.5%, transparent 52.5%),
+      linear-gradient(-45deg, transparent 47.5%, #fff 47.5% 52.5%, transparent 52.5%),
+      var(--blue);
+  }
+  .hero-flag{font-size:54px;line-height:1;margin-bottom:14px;animation:bob 3s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}
+  h1{font-size:38px;font-weight:900;letter-spacing:-1.5px;line-height:1.05}
+  h1 .no{color:var(--amber)}
+  .hero-sub{color:var(--muted);font-size:15px;margin-top:12px}
+  .hero-badge{
+    display:inline-block;margin-top:18px;padding:8px 16px;border-radius:999px;
+    background:rgba(0,101,191,.18);border:1px solid rgba(43,127,212,.45);
+    color:#9CC4EA;font-size:13px;font-weight:600;
+  }
+
+  /* ===== FIXTURES ===== */
+  .fixture{
+    background:var(--card);border-radius:var(--radius);padding:18px;margin-bottom:12px;
+    display:flex;align-items:center;gap:14px;
+    border:1px solid rgba(255,255,255,.05);
+    opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s;
+  }
+  .fixture.vis{opacity:1;transform:none}
+  .fx-flags{font-size:30px;white-space:nowrap}
+  .fx-vs{color:var(--muted);font-size:13px;margin:0 2px}
+  .fx-info{flex:1;min-width:0}
+  .fx-teams{font-weight:800;font-size:16px}
+  .fx-meta{color:var(--muted);font-size:12.5px;margin-top:2px}
+  .fx-date{
+    background:rgba(242,169,59,.12);color:var(--amber);border:1px solid rgba(242,169,59,.3);
+    border-radius:10px;padding:7px 10px;text-align:center;font-weight:800;font-size:13px;line-height:1.15;min-width:54px;
+  }
+  .fx-date small{display:block;font-weight:600;font-size:10px;opacity:.8}
+
+  /* ===== BIG NUMBERS ===== */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .stat{
+    background:var(--card);border-radius:var(--radius);padding:20px 16px;
+    border:1px solid rgba(255,255,255,.05);
+  }
+  .stat .v{font-size:30px;font-weight:900;letter-spacing:-1px;color:var(--amber);font-variant-numeric:tabular-nums}
+  .stat .l{color:var(--muted);font-size:12.5px;margin-top:4px;line-height:1.35}
+  .stat.blue .v{color:var(--blue-soft)}
+
+  /* ===== BAR CHART (Thirst League) ===== */
+  .bar-row{margin-bottom:14px}
+  .bar-top{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:5px}
+  .bar-top b{font-weight:700}
+  .bar-top span{color:var(--muted);font-variant-numeric:tabular-nums}
+  .bar-track{height:14px;background:var(--card2);border-radius:8px;overflow:hidden}
+  .bar-fill{
+    height:100%;width:0;border-radius:8px;
+    background:linear-gradient(90deg,var(--amber-deep),var(--amber));
+    transition:width 1.2s cubic-bezier(.22,1,.36,1);
+  }
+  .bar-row.scot .bar-fill{background:linear-gradient(90deg,#0065BF,#2B7FD4)}
+  .chart-note{color:var(--muted);font-size:12px;margin-top:14px}
+
+  /* ===== PINT PRICES ===== */
+  .pints{display:flex;gap:10px;align-items:flex-end;justify-content:space-between;margin-top:10px}
+  .pint{flex:1;text-align:center}
+  .pint-glass{
+    margin:0 auto;width:74%;max-width:64px;border-radius:4px 4px 10px 10px;
+    border:2px solid rgba(255,255,255,.22);border-top:none;position:relative;overflow:hidden;
+    background:rgba(255,255,255,.03);
+  }
+  .pint-beer{
+    position:absolute;bottom:0;left:0;right:0;height:0;
+    background:linear-gradient(180deg,#F8C660,#D4882A);
+    transition:height 1.2s cubic-bezier(.22,1,.36,1);
+  }
+  .pint-foam{position:absolute;left:0;right:0;height:7px;background:rgba(255,255,255,.85);border-radius:3px;top:-7px;transition:top 1.2s cubic-bezier(.22,1,.36,1)}
+  .pint-price{font-weight:900;font-size:17px;margin-top:8px;font-variant-numeric:tabular-nums}
+  .pint-label{color:var(--muted);font-size:11.5px;margin-top:2px;line-height:1.3}
+
+  /* ===== BREWERIES ===== */
+  .tabs{display:flex;background:var(--card2);border-radius:12px;padding:4px;margin-bottom:16px}
+  .tab{
+    flex:1;text-align:center;padding:10px;border-radius:9px;font-weight:700;font-size:14px;
+    color:var(--muted);cursor:pointer;transition:.2s;user-select:none;
+  }
+  .tab.on{background:var(--blue);color:#fff}
+  .brew-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px}
+  .brew-stat{background:var(--card);border-radius:12px;padding:14px 10px;text-align:center;border:1px solid rgba(255,255,255,.05)}
+  .brew-stat .v{font-size:22px;font-weight:900;color:var(--amber)}
+  .brew-stat .l{font-size:10.5px;color:var(--muted);margin-top:2px;line-height:1.3}
+  .brew-list{background:var(--card);border-radius:var(--radius);overflow:hidden;border:1px solid rgba(255,255,255,.05)}
+  .brew-item{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,.05)}
+  .brew-item:last-child{border-bottom:none}
+  .brew-rank{
+    width:26px;height:26px;border-radius:50%;background:rgba(242,169,59,.14);color:var(--amber);
+    font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .brew-name{font-weight:700;font-size:14px}
+  .brew-meta{color:var(--muted);font-size:11.5px}
+  .brew-dist{margin-left:auto;color:var(--blue-soft);font-weight:800;font-size:13px;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+  footer{padding:40px 0 70px;color:var(--muted);font-size:12px;line-height:1.7}
+  footer a{color:var(--blue-soft);text-decoration:none}
+  footer h3{color:var(--text);font-size:13px;margin-bottom:8px}
+  .divider{height:1px;background:rgba(255,255,255,.07);margin:0}
+</style>
+</head>
+<body>
+<div class="tartan"></div>
+
+<header>
+  <div class="saltire"></div>
+  <div class="wrap" style="position:relative">
+    <div class="hero-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿🍺</div>
+    <h1><span class="no">NO SCOTLAND,</span><br>NO PARTY</h1>
+    <p class="hero-sub">The World Cup Beer Index — what happens when the Tartan Army hits America for the first time in <b>28 years</b></p>
+    <div class="hero-badge">⚽ Group C · Boston &amp; Miami · June 2026</div>
+  </div>
+</header>
+
+<section id="fixtures">
+  <div class="wrap">
+    <div class="kicker">The Mission</div>
+    <h2>Three matches. Two cities.<br>One thirsty army.</h2>
+    <p class="sub">Scotland's first World Cup since France '98. The draw was not kind. The beer will be necessary.</p>
+    <div class="fixture"><div class="fx-flags">🇭🇹<span class="fx-vs">v</span>🏴󠁧󠁢󠁳󠁣󠁴󠁿</div><div class="fx-info"><div class="fx-teams">Haiti v Scotland</div><div class="fx-meta">Gillette Stadium · Foxborough, Boston</div></div><div class="fx-date">JUN<br>14<small>2026</small></div></div>
+    <div class="fixture"><div class="fx-flags">🏴󠁧󠁢󠁳󠁣󠁴󠁿<span class="fx-vs">v</span>🇲🇦</div><div class="fx-info"><div class="fx-teams">Scotland v Morocco</div><div class="fx-meta">Gillette Stadium · Foxborough, Boston</div></div><div class="fx-date">JUN<br>19<small>2026</small></div></div>
+    <div class="fixture"><div class="fx-flags">🏴󠁧󠁢󠁳󠁣󠁴󠁿<span class="fx-vs">v</span>🇧🇷</div><div class="fx-info"><div class="fx-teams">Scotland v Brazil</div><div class="fx-meta">Hard Rock Stadium · Miami Gardens</div></div><div class="fx-date">JUN<br>24<small>2026</small></div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="bignumbers">
+  <div class="wrap">
+    <div class="kicker">The Stakes</div>
+    <h2>A billion-pint tournament</h2>
+    <p class="sub">Analysts think this is the biggest beer event in sporting history. The numbers are absurd.</p>
+    <div class="grid2" id="statgrid"><!--STATS--></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="thirst">
+  <div class="wrap">
+    <div class="kicker">Know Your Enemy</div>
+    <h2>The Group C Thirst League</h2>
+    <p class="sub">Annual beer consumption per person, litres. Scotland's group is... a study in contrasts.</p>
+    <div id="thirst-chart"></div>
+    <p class="chart-note" id="thirst-note"></p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="prices">
+  <div class="wrap">
+    <div class="kicker">Brace Yourselves</div>
+    <h2>The price of a pint</h2>
+    <p class="sub">Glasgow prices won't prepare you for this. Glass fill = how full your wallet stays.</p>
+    <div class="pints" id="pint-row"></div>
+    <p class="chart-note" id="price-note"></p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="breweries">
+  <div class="wrap">
+    <div class="kicker">Live Data · Open Brewery DB</div>
+    <h2>Brewery recon</h2>
+    <p class="sub">Real breweries, real distances from each stadium — pulled fresh from the Open Brewery DB.</p>
+    <div class="tabs" id="brew-tabs">
+      <div class="tab on" data-city="boston">🦞 Boston</div>
+      <div class="tab" data-city="miami">🌴 Miami</div>
+    </div>
+    <div class="brew-stats" id="brew-stats"></div>
+    <div class="brew-list" id="brew-list"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!--MATCHER-->
+
+<div class="divider"></div>
+
+<!--CALCULATOR-->
+
+<footer>
+  <div class="wrap">
+    <h3>How this was made</h3>
+    <p>Built by Claude with four parallel research &amp; build agents. Brewery data: <a href="https://www.openbrewerydb.org">Open Brewery DB</a> (live API, June 2026). Consumption &amp; economics figures compiled from published sources — see <code>data/facts_sources.md</code> in the repo. Forecasts are forecasts; pints are pints. Drink responsibly, sing loudly. 🏴󠁧󠁢󠁳󠁣󠁴󠁿</p>
+  </div>
+</footer>
+
+<script>
+window.WC_DATA = /*DATA_JSON*/{};
+</script>
+<script>
+(function(){
+  const D = window.WC_DATA;
+
+  /* reveal-on-scroll for fixtures */
+  const io = new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}
+  }),{threshold:.2});
+  document.querySelectorAll('.fixture').forEach((f,i)=>{f.style.transitionDelay=(i*120)+'ms';io.observe(f);});
+
+  /* animated counters */
+  function countUp(el, target, fmt, dur){
+    const t0 = performance.now();
+    function tick(t){
+      const p = Math.min((t-t0)/dur,1), ease = 1-Math.pow(1-p,3);
+      el.textContent = fmt(target*ease);
+      if(p<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  /* big stats */
+  const statgrid = document.getElementById('statgrid');
+  const stats = D.stats || [];
+  statgrid.innerHTML = stats.map((s,i)=>`<div class="stat ${i%2?'blue':''}"><div class="v" data-i="${i}">0</div><div class="l">${s.label}</div></div>`).join('');
+  const statIO = new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return; statIO.unobserve(e.target);
+    const i = +e.target.dataset.i, s = stats[i];
+    countUp(e.target, s.value, v=>s.prefix+(s.decimals? v.toFixed(s.decimals): Math.round(v).toLocaleString())+s.suffix, 1600);
+  }),{threshold:.6});
+  statgrid.querySelectorAll('.v').forEach(el=>statIO.observe(el));
+
+  /* thirst league bars */
+  const tc = document.getElementById('thirst-chart');
+  const cons = D.consumption || [];
+  const maxL = Math.max(...cons.map(c=>c.liters));
+  tc.innerHTML = cons.map(c=>`
+    <div class="bar-row ${c.scot?'scot':''}">
+      <div class="bar-top"><b>${c.flag} ${c.name}</b><span>${c.liters} L/yr</span></div>
+      <div class="bar-track"><div class="bar-fill" data-w="${(c.liters/maxL*100).toFixed(1)}"></div></div>
+    </div>`).join('');
+  document.getElementById('thirst-note').textContent = D.consumption_note || '';
+  const barIO = new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return; barIO.unobserve(e.target);
+    e.target.style.width = e.target.dataset.w+'%';
+  }),{threshold:.5});
+  tc.querySelectorAll('.bar-fill').forEach(el=>barIO.observe(el));
+
+  /* pint prices */
+  const pr = document.getElementById('pint-row');
+  const prices = D.pint_prices || [];
+  const maxP = Math.max(...prices.map(p=>p.usd));
+  pr.innerHTML = prices.map(p=>`
+    <div class="pint">
+      <div class="pint-glass" style="height:${Math.round(60+p.usd/maxP*60)}px">
+        <div class="pint-beer" data-h="${(100 - (p.usd/maxP*100) + 18).toFixed(0)}"></div>
+        <div class="pint-foam"></div>
+      </div>
+      <div class="pint-price">${p.display}</div>
+      <div class="pint-label">${p.label}</div>
+    </div>`).join('');
+  document.getElementById('price-note').textContent = D.price_note || '';
+  const pintIO = new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return; pintIO.unobserve(e.target);
+    e.target.querySelectorAll('.pint-beer').forEach(b=>{
+      const h = Math.min(95, Math.max(15, +b.dataset.h));
+      b.style.height = h+'%';
+      b.parentElement.querySelector('.pint-foam').style.top = (100-h-7)+'%';
+    });
+  }),{threshold:.4});
+  pintIO.observe(pr);
+
+  /* breweries */
+  const brew = D.breweries || {};
+  function renderCity(city){
+    const c = brew[city]; if(!c) return;
+    document.getElementById('brew-stats').innerHTML = `
+      <div class="brew-stat"><div class="v">${c.total_in_state}</div><div class="l">breweries in ${city==='boston'?'MA':'FL'}</div></div>
+      <div class="brew-stat"><div class="v">${c.within_25mi}</div><div class="l">within 25 mi of stadium</div></div>
+      <div class="brew-stat"><div class="v">${c.within_10mi}</div><div class="l">within 10 mi of stadium</div></div>`;
+    document.getElementById('brew-list').innerHTML = (c.closest||[]).slice(0,8).map((b,i)=>`
+      <div class="brew-item">
+        <div class="brew-rank">${i+1}</div>
+        <div><div class="brew-name">${b.name}</div><div class="brew-meta">${b.city} · ${b.type}</div></div>
+        <div class="brew-dist">${b.miles} mi</div>
+      </div>`).join('');
+  }
+  document.querySelectorAll('#brew-tabs .tab').forEach(t=>t.addEventListener('click',()=>{
+    document.querySelectorAll('#brew-tabs .tab').forEach(x=>x.classList.remove('on'));
+    t.classList.add('on'); renderCity(t.dataset.city);
+  }));
+  renderCity('boston');
+})();
+</script>
+</body>
+</html>

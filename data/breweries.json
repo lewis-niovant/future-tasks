@@ -1,0 +1,226 @@
+{
+  "boston": {
+    "stadium": "Gillette Stadium",
+    "total_in_state": 165,
+    "with_coordinates": 104,
+    "within_10mi": 5,
+    "within_25mi": 34,
+    "by_type": {
+      "micro": 58,
+      "contract": 7,
+      "regional": 11,
+      "brewpub": 26,
+      "proprietor": 1,
+      "closed": 1
+    },
+    "closest": [
+      {
+        "name": "Percival Brewing Company",
+        "city": "Norwood",
+        "type": "micro",
+        "miles": 6.3,
+        "website": "http://www.percivalbeercompany.com"
+      },
+      {
+        "name": "Castle Island Brewing Co.",
+        "city": "Norwood",
+        "type": "micro",
+        "miles": 6.6,
+        "website": "http://www.castleislandbeer.com"
+      },
+      {
+        "name": "ZeLUS Beer Company",
+        "city": "Medfield",
+        "type": "contract",
+        "miles": 8.4,
+        "website": "http://www.zelusbeer.com"
+      },
+      {
+        "name": "Trillium Brewing",
+        "city": "Canton",
+        "type": "regional",
+        "miles": 8.6,
+        "website": "http://www.trilliumbrewing.com"
+      },
+      {
+        "name": "Bog Iron Brewing Co",
+        "city": "Norton",
+        "type": "micro",
+        "miles": 9.4,
+        "website": null
+      },
+      {
+        "name": "Skyroc Brewery",
+        "city": "Attleboro",
+        "type": "micro",
+        "miles": 10.2,
+        "website": "http://www.skyrocbrewery.com"
+      },
+      {
+        "name": "Exhibit 'A' Brewing Co.",
+        "city": "Framingham",
+        "type": "micro",
+        "miles": 14.8,
+        "website": "http://www.exhibit-A-brewing.com"
+      },
+      {
+        "name": "Jack's Abby Brewing",
+        "city": "Framingham",
+        "type": "regional",
+        "miles": 15.1,
+        "website": "http://www.jacksabbybrewing.com"
+      },
+      {
+        "name": "Start Line Brewing Company",
+        "city": "Hopkinton",
+        "type": "micro",
+        "miles": 15.2,
+        "website": "http://www.startlinebrewing.com"
+      },
+      {
+        "name": "John Harvards Brew House - Framingham",
+        "city": "Framingham",
+        "type": "brewpub",
+        "miles": 16.2,
+        "website": "http://www.johnharvards.com"
+      },
+      {
+        "name": "10th District Brewing Company",
+        "city": "Abington",
+        "type": "micro",
+        "miles": 16.4,
+        "website": "http://www.10thdistrictbrewing.com"
+      },
+      {
+        "name": "Turtle Swamp Brewing",
+        "city": "Jamaica Plain",
+        "type": "micro",
+        "miles": 16.5,
+        "website": "http://www.turtleswampbrewing.com"
+      }
+    ],
+    "fun_stats": {
+      "top_city_within_25mi": {
+        "city": "Boston",
+        "count": 8
+      },
+      "micro_vs_brewpub_vs_large": {
+        "micro": 58,
+        "brewpub": 26,
+        "large": 0
+      }
+    }
+  },
+  "miami": {
+    "stadium": "Hard Rock Stadium",
+    "total_in_state": 312,
+    "with_coordinates": 166,
+    "within_10mi": 5,
+    "within_25mi": 18,
+    "by_type": {
+      "micro": 112,
+      "contract": 4,
+      "proprietor": 3,
+      "large": 3,
+      "brewpub": 41,
+      "regional": 3
+    },
+    "closest": [
+      {
+        "name": "Legacy Caribbean Craft Brewery",
+        "city": "Opa Locka",
+        "type": "micro",
+        "miles": 4.6,
+        "website": "http://Www.legacyccb.com"
+      },
+      {
+        "name": "Department Coffee",
+        "city": "Hollywood",
+        "type": "contract",
+        "miles": 6.4,
+        "website": "http://www.depatmentcoffee.com"
+      },
+      {
+        "name": "Hollywood Brewing Co",
+        "city": "Hollywood",
+        "type": "micro",
+        "miles": 7.3,
+        "website": "http://www.hollywood.beer"
+      },
+      {
+        "name": "3 Sons Brewing Co.",
+        "city": "Dania",
+        "type": "proprietor",
+        "miles": 8.6,
+        "website": "http://www.3sonsbrewingco.com"
+      },
+      {
+        "name": "Bousa Brewing Company",
+        "city": "Miami",
+        "type": "micro",
+        "miles": 8.6,
+        "website": "http://www.bousabrewing.com"
+      },
+      {
+        "name": "Wynwood Brewing Company",
+        "city": "Miami",
+        "type": "micro",
+        "miles": 11.1,
+        "website": "http://www.wynwoodbrewing.com"
+      },
+      {
+        "name": "Concrete Beach Brewery",
+        "city": "Miami",
+        "type": "micro",
+        "miles": 11.2,
+        "website": "http://www.concretebeachbrewery.com/"
+      },
+      {
+        "name": "Veza Sur Brewing Co",
+        "city": "Miami",
+        "type": "large",
+        "miles": 11.2,
+        "website": null
+      },
+      {
+        "name": "J Wakefield Brewing",
+        "city": "Miami",
+        "type": "micro",
+        "miles": 11.2,
+        "website": "http://www.jwakefieldbrewing.com"
+      },
+      {
+        "name": "Tarpon River Brewing",
+        "city": "Fort Lauderdale",
+        "type": "micro",
+        "miles": 12.3,
+        "website": "http://www.nativebrewingco.com/index.html"
+      },
+      {
+        "name": "NightLife Brewing Co",
+        "city": "Miami",
+        "type": "micro",
+        "miles": 12.3,
+        "website": "http://www.nightlifebrewingco.com"
+      },
+      {
+        "name": "Abbey Brewing Co",
+        "city": "Miami Beach",
+        "type": "contract",
+        "miles": 13.2,
+        "website": null
+      }
+    ],
+    "fun_stats": {
+      "top_city_within_25mi": {
+        "city": "Miami",
+        "count": 8
+      },
+      "micro_vs_brewpub_vs_large": {
+        "micro": 112,
+        "brewpub": 41,
+        "large": 3
+      }
+    }
+  }
+}
