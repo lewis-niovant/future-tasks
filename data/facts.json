@@ -1,0 +1,208 @@
+{
+  "meta": {
+    "generated": "2026-06-11",
+    "topic": "Tartan Army beer economics - World Cup 2026 (Scotland vs Haiti Jun 14 & Morocco Jun 19 at Gillette Stadium/Boston, vs Brazil Jun 24 at Hard Rock Stadium/Miami)",
+    "gbp_usd_rate": {
+      "rate": 1.3377,
+      "as_of": "2026-06-10",
+      "source": "exchangerates.org.uk / Pound Sterling Live (GBP/USD daily history)"
+    }
+  },
+  "pint_prices": {
+    "uk_average_gbp": {
+      "value": 5.50,
+      "year": 2026,
+      "note": "UK average pint, up 6% from GBP 5.17 in 2024",
+      "source": "Finder UK pint price research"
+    },
+    "edinburgh_gbp": {
+      "value": 6.00,
+      "year": 2026,
+      "note": "Most expensive city in Scotland for a pint; a pint of Guinness averages GBP 6.08 (March 2026)",
+      "source": "Edinburgh Evening News / The Drinks Business"
+    },
+    "glasgow_gbp": {
+      "value": 4.93,
+      "year": 2026,
+      "note": "Average Guinness price; Glasgow is one of only two UK cities where a pint of the stout is still under GBP 5",
+      "source": "The Drinks Business (March 2026 Guinness price survey)"
+    },
+    "boston_bar_usd": {
+      "value": 8.00,
+      "year": 2025,
+      "note": "Average beer in a neighbourhood pub; Boston is among the highest-priced US markets and happy hour is banned in Massachusetts",
+      "source": "Expatistan / BeerAdvocate community pricing"
+    },
+    "miami_bar_usd": {
+      "value": 7.50,
+      "year": 2025,
+      "note": "Reports range USD 7 (NBC Miami night-out cost report) to USD 8 (Expatistan neighbourhood pub); US restaurant/bar median was USD 6.45 in July 2025 (Toast POS data)",
+      "estimate": true,
+      "source": "Expatistan / NBC Miami / Toast"
+    },
+    "stadium_prices_world_cup_2026": {
+      "gillette_stadium_boston_gbp": {
+        "value": 6.43,
+        "usd_equivalent": 8.60,
+        "source": "GiveMeSport stadium pint price survey, June 2026"
+      },
+      "hard_rock_stadium_miami_gbp": {
+        "value": 8.99,
+        "usd_equivalent": 12.03,
+        "source": "GiveMeSport stadium pint price survey, June 2026"
+      },
+      "most_expensive": {
+        "stadiums": "SoFi Stadium (Los Angeles) and Levi's Stadium (San Francisco)",
+        "value_gbp": 10.49,
+        "usd_equivalent": 14.03,
+        "source": "GiveMeSport / William Hill News"
+      },
+      "cheapest": {
+        "stadiums": "Estadio Akron (Guadalajara) and Estadio Azteca (Mexico City)",
+        "value_gbp": 2.04,
+        "usd_equivalent": 2.73,
+        "source": "GiveMeSport / William Hill News"
+      },
+      "england_friendly_observed_usd": {
+        "premium_beer": 18.00,
+        "domestic_beer": 16.75,
+        "note": "Prices that stunned England fans at the England vs New Zealand US friendly days before the tournament; FIFA venues also reported USD 8.75 water",
+        "source": "Yahoo Sports / SportBible / Open Magazine, June 2026"
+      }
+    }
+  },
+  "scottish_beers_us": [
+    {
+      "brand": "BrewDog",
+      "availability": "Widest US footprint of any Scottish brewer: 100,000 sq ft US brewery and HQ in Columbus, Ohio (DogTap), bars in Columbus/New Albany/Cleveland (OH), Columbus Airport, Atlanta (GA), and a 30,000 sq ft, 1,300-capacity rooftop bar on the Las Vegas Strip (its biggest bar worldwide). Beer in retail nationwide.",
+      "note": "NO BrewDog bar in Boston or Miami - the nearest experiences to the Scotland venues are retail cans/taps, not BrewDog's own bars.",
+      "source": "usa.brewdog.com bar locator / Craft Brewing Business / HMSHost"
+    },
+    {
+      "brand": "Tennent's",
+      "availability": "Nationally imported by Total Beverage Solution (Tennent's 1885 Lager 16.9oz cans returned to US retail); available in stores, bars and via online retailers.",
+      "note": "Approximately 300 kegs of Tennent's were shipped to Boston specifically for the World Cup, ~120 of them to The Haven pub in Jamaica Plain - STV headlined it 'Tennent's galore'.",
+      "source": "Total Beverage Solution / tennents.com US / STV News / Boston 25 News"
+    },
+    {
+      "brand": "Innis & Gunn",
+      "availability": "Imported by United States Beverage; sold in 20+ countries; The Original (scotch-whisky-barrel-aged golden beer) widely stocked via US specialty retailers and wine-searcher-listed stores.",
+      "note": "Scotland's most-awarded craft brewer; sells via local stockists rather than direct-to-consumer in the US.",
+      "source": "United States Beverage / innisandgunn.com US site / Wine-Searcher"
+    },
+    {
+      "brand": "Belhaven",
+      "availability": "Greene King-owned Scottish brewery (Scotland's oldest working brewery); Belhaven Scottish Ale and Scottish Stout have long been exported to the US and appear at US specialty beer retailers, though distribution is patchier than Tennent's or Innis & Gunn.",
+      "note": "Current dedicated US importer not confirmed in 2026 reporting.",
+      "estimate": true,
+      "source": "Wikipedia (Belhaven Brewery) / US retail listings"
+    },
+    {
+      "brand": "Harviestoun",
+      "availability": "Available through US specialty bottle shops and online craft retailers - e.g. Old Engine Oil (6% black ale/stout) stocked at Binny's (Chicago), Metro Wine & Spirits and Hop Cask & Barrel (Washington DC), and CraftShack online (not shipped to NY, NH, PA).",
+      "note": "Cult favourite; its whisky-cask Ola Dubh series also reaches US specialty shops.",
+      "source": "CraftShack / Binny's / BeerMenus"
+    }
+  ],
+  "consumption_l_per_capita": {
+    "czechia": {
+      "liters": 126.0,
+      "year": 2024,
+      "note": "World #1 for the 32nd consecutive year (Czech brewers association; Kirin-based lists cite 128.0)",
+      "source": "Czech Beer and Malt Association via Wikipedia / Kirin Holdings"
+    },
+    "usa": {
+      "liters": 72.7,
+      "year": 2019,
+      "note": "27th of 170 countries per capita; #2 in the world by total volume",
+      "source": "Kirin Holdings via Wikipedia"
+    },
+    "uk_scotland": {
+      "liters": 70.3,
+      "year": 2019,
+      "note": "UK-wide figure; no separate official Scotland-only series",
+      "source": "Kirin Holdings via Wikipedia"
+    },
+    "brazil": {
+      "liters": 58.4,
+      "year": 2019,
+      "note": "World's #3 beer market by total volume, behind China and the USA",
+      "source": "Kirin Holdings via Wikipedia"
+    },
+    "morocco": {
+      "liters": 2.33,
+      "year": 2021,
+      "note": "Majority-Muslim country; total alcohol consumption only ~0.5 L pure alcohol per capita (World Bank, 2020) - roughly 1/50th of Scottish-level beer drinking",
+      "source": "FAOSTAT via Helgi Library / World Bank"
+    },
+    "haiti": {
+      "liters": 1.3,
+      "year": 2020,
+      "note": "Estimates range from 0.22 L (Helgi Library, 2020) to ~1.3 L; rum dominates. Local lager Prestige (BRANA, Port-au-Prince, 5.6% ABV, launched 1976) holds ~98% of the domestic beer market",
+      "estimate": true,
+      "source": "Helgi Library / HaitianInternet / Wikipedia (Prestige beer)"
+    }
+  },
+  "world_cup_economics": {
+    "jefferies_pint_forecast": {
+      "pints": 1000000000,
+      "detail": "Jefferies (analyst Ed Mundy, note published 27 April 2026) forecasts the tournament will drive consumption of over 1 billion pints of beer worldwide, a 0.3% lift to global beer industry volumes; 'match timing is the unsung hero' - Europe/Americas games were largely scheduled into peak 5pm-11pm local drinking windows. AB InBev expected to be the biggest winner.",
+      "source": "Bloomberg / Drinks Digest"
+    },
+    "global_gdp_boost_usd": {
+      "value": 40900000000,
+      "detail": "FIFA/WTO socioeconomic impact analysis (March 2025): up to $40.9B added to global GDP (~$41B), 824,000 full-time-equivalent jobs, 13.1 million visitors and 21+ million hotel nights across the three host nations; US share ~$17.2B",
+      "source": "FIFA World Cup 2026 Socioeconomic Impact Analysis / beIN Sports"
+    },
+    "sofi_stadium_beer_sales_usd": {
+      "value": 15000000,
+      "detail": "SoFi Stadium (LA) projected to sell nearly $15M of beer across its 8 World Cup matches - described as enough beer to fill 1.2 million Starbucks Venti cups",
+      "source": "LA Times via Yahoo Sports"
+    },
+    "att_stadium_dallas_beer_sales_usd": {
+      "value": 11700000,
+      "detail": "Dallas expects $11.7M in AT&T Stadium beer sales during its World Cup matches",
+      "source": "CW33 Dallas"
+    },
+    "mexico_host_city_beer_uplift_pct": {
+      "value": 9.9,
+      "detail": "Deloitte: beer sales in Mexico City, Guadalajara and Monterrey could rise up to 9.9% during the tournament (triple the usual period profit); beer expected to account for 55-65% of all Mexico World Cup-related spending; craft beer sales in restaurants/tasting rooms could spike up to 300%",
+      "source": "Deloitte via Mexico News Daily / Mexico Business News"
+    },
+    "boston_economic_impact": {
+      "value_usd": 1100000000,
+      "detail": "Seven matches at Gillette Stadium (temporarily renamed 'Boston Stadium') projected to pump ~$1.1B into the Greater Boston economy, with $60M+ in tax revenue, ~5,000 new jobs and up to 2 million visitors to the region; earlier BCG estimate was up to $500M with 450,000 visitors",
+      "source": "WROR / GBH News / CBS Boston / NBC Boston"
+    },
+    "budweiser_sponsorship": {
+      "detail": "AB InBev has been FIFA's official beer sponsor since 1986 (40 years - celebrated with a 'Budstalgia' campaign); Budweiser and Michelob ULTRA are official beer sponsors of World Cup 2026; Budweiser's global 2026 platform is 'Let It Pour' fronted by Erling Haaland and Jurgen Klopp; the prior cycle's sponsorship was reported at ~$75M; advocacy group Big Alcohol Exposed estimates AB InBev's total 2026 alcohol-marketing machine at $7.2B",
+      "source": "AB InBev / FIFA / ESPN / VinePair / BigAlcohol Exposed"
+    },
+    "beer_in_stands": {
+      "allowed": true,
+      "detail": "Unlike Qatar 2022 (stadium sales banned days before kickoff; still 1.2M litres sold in restricted areas), alcohol sales will be permitted in general seating areas across all 2026 host nations, subject to local law; some venues (e.g. BC Place, Vancouver) will offer alcohol-free family sections; some US states and New York have temporarily relaxed drinking laws for the tournament. William Hill projects at least 3 million litres (5.2M+ pints) sold across venues and fan zones.",
+      "source": "Football Ground Guide / Newsweek / William Hill News"
+    }
+  },
+  "tartan_army": {
+    "fans_traveling_estimate": 40000,
+    "detail": "Tens of thousands of Scotland fans expected in the US (STV: 'Tartan Army Exodus'); Boston-area businesses are preparing for roughly 40,000 Scots; ~200,000 Scots travelled to Euro 2024 in Germany. This is Scotland's first World Cup finals in 28 years (since France 1998).",
+    "estimate": true,
+    "source": "STV News / Boston 25 News / Yahoo Sports-AFP",
+    "matches": [
+      {"opponent": "Haiti", "date": "2026-06-14", "venue": "Gillette Stadium (Boston Stadium), Foxborough MA"},
+      {"opponent": "Morocco", "date": "2026-06-19", "venue": "Gillette Stadium (Boston Stadium), Foxborough MA"},
+      {"opponent": "Brazil", "date": "2026-06-24", "venue": "Hard Rock Stadium, Miami Gardens FL"}
+    ],
+    "boston_pubs": {
+      "the_haven": {
+        "detail": "The Haven, Jamaica Plain - Boston's ONLY Scottish pub (owner Jason Waddleton) - is serving as a Tartan Army headquarters: ~300 kegs of Tennent's shipped to Boston with ~120 going to the pub; hosting 'HOME GROUND', a three-day football festival with Scottish trivia, whisky tastings, live music, DJs and an outdoor supporter festival",
+        "source": "Boston 25 News / STV News / thehavenjp.com"
+      },
+      "the_greatest_bar": {
+        "detail": "The Greatest Bar (near TD Garden) billed as an official Tartan Army headquarters in Boston: four floors, massive screens, themed spaces and nightly international after-parties during the tournament",
+        "source": "Meet Boston (meetboston.com FIFA watch-party guide)"
+      }
+    }
+  }
+}

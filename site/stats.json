@@ -1,0 +1,8 @@
+[
+  {"value": 1.0, "prefix": "", "suffix": "B", "decimals": 1, "label": "pints forecast worldwide this tournament (Jefferies)"},
+  {"value": 41, "prefix": "$", "suffix": "B", "decimals": 0, "label": "boost to global GDP (FIFA/WTO impact analysis)"},
+  {"value": 300, "prefix": "", "suffix": "", "decimals": 0, "label": "kegs of Tennent's shipped to Boston for the Tartan Army 🛳️"},
+  {"value": 40000, "prefix": "", "suffix": "", "decimals": 0, "label": "Scots expected in the Boston area (200k went to Euro 2024)"},
+  {"value": 15, "prefix": "$", "suffix": "M", "decimals": 0, "label": "beer sales projected at SoFi Stadium alone, across 8 matches"},
+  {"value": 1.1, "prefix": "$", "suffix": "B", "decimals": 1, "label": "projected boost to Greater Boston from its 7 matches"}
+]

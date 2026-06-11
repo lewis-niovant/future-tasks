@@ -18,8 +18,6 @@ for city in ("boston", "miami"):
     brew[city] = c
 
 # --- curated dashboard data (researched figures; see data/facts.json + sources) ---
-facts = json.loads((DATA / "facts.json").read_text())
-
 payload = {
     "stats": json.loads((SITE / "stats.json").read_text()),
     "consumption": json.loads((SITE / "consumption.json").read_text()),
