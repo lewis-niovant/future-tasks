@@ -1,0 +1,535 @@
+<section class="match-section" id="match-find-your-pint" aria-label="Find Your American Pint">
+  <style>
+    /* ============ FIND YOUR AMERICAN PINT — scoped styles (match-) ============ */
+    .match-section {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 48px 20px 56px;
+      color: #E8EAF2;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      box-sizing: border-box;
+    }
+    .match-section *, .match-section *::before, .match-section *::after { box-sizing: border-box; }
+
+    .match-kicker {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #F2A93B;
+      margin: 0 0 10px;
+    }
+    .match-title {
+      font-size: 28px;
+      line-height: 1.15;
+      font-weight: 800;
+      color: #E8EAF2;
+      margin: 0 0 10px;
+      letter-spacing: -0.01em;
+    }
+    .match-sub {
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: #8A91B4;
+      margin: 0 0 26px;
+    }
+
+    /* ---------- horizontal scroller of home beers ---------- */
+    .match-rail-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8A91B4;
+      margin: 0 0 12px;
+    }
+    .match-rail {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 4px 20px 18px;
+      margin: 0 -20px;
+      scroll-snap-type: x proximity;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .match-rail::-webkit-scrollbar { display: none; }
+
+    .match-card {
+      flex: 0 0 auto;
+      width: 148px;
+      min-height: 158px;
+      scroll-snap-align: center;
+      background: #141829;
+      border: 1px solid rgba(138, 145, 180, 0.18);
+      border-radius: 16px;
+      padding: 16px 14px 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 9px;
+      cursor: pointer;
+      color: #E8EAF2;
+      font: inherit;
+      text-align: left;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      transition: transform 0.16s ease, border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+    }
+    .match-card:active { transform: scale(0.95); }
+    .match-card:focus-visible {
+      outline: 2px solid #0065BF;
+      outline-offset: 2px;
+    }
+    .match-card[aria-pressed="true"] {
+      border-color: #F2A93B;
+      background: linear-gradient(160deg, rgba(242, 169, 59, 0.13), rgba(20, 24, 41, 0.6) 55%), #141829;
+      box-shadow: 0 6px 22px rgba(242, 169, 59, 0.14);
+    }
+    .match-card-emoji {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(0, 101, 191, 0.16);
+      border: 1px solid rgba(0, 101, 191, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .match-card--joke .match-card-emoji {
+      background: rgba(242, 169, 59, 0.14);
+      border-color: rgba(242, 169, 59, 0.4);
+    }
+    .match-card-name {
+      font-size: 14.5px;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+    .match-card-style {
+      margin-top: auto;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #8A91B4;
+    }
+    .match-card[aria-pressed="true"] .match-card-style { color: #F2A93B; }
+
+    /* ---------- result panel ---------- */
+    .match-result { display: none; margin-top: 8px; }
+    .match-result.match-result--open { display: block; }
+
+    .match-result-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 18px 0 14px;
+      animation: match-fadeup 0.4s ease both;
+    }
+    .match-result-head-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(138, 145, 180, 0.25);
+    }
+    .match-result-head-text {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #8A91B4;
+      white-space: nowrap;
+    }
+    .match-result-head-text strong { color: #F2A93B; font-weight: 700; }
+
+    .match-city {
+      background: #141829;
+      border: 1px solid rgba(138, 145, 180, 0.18);
+      border-radius: 16px;
+      padding: 20px 18px 18px;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+      animation: match-fadeup 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .match-city--boston { animation-delay: 0.08s; }
+    .match-city--miami { animation-delay: 0.22s; }
+    .match-city::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+    }
+    .match-city--boston::before { background: #0065BF; }
+    .match-city--miami::before { background: #F2A93B; }
+
+    .match-city-tag {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border-radius: 999px;
+      margin-bottom: 13px;
+    }
+    .match-city--boston .match-city-tag { background: rgba(0, 101, 191, 0.18); color: #5BA8E8; }
+    .match-city--miami .match-city-tag { background: rgba(242, 169, 59, 0.14); color: #F2A93B; }
+
+    .match-beer-name {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin: 0 0 3px;
+      color: #E8EAF2;
+    }
+    .match-beer-brewery {
+      font-size: 13px;
+      font-weight: 600;
+      color: #8A91B4;
+      margin: 0 0 12px;
+    }
+    .match-pills { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 0 13px; }
+    .match-pill {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #E8EAF2;
+      background: rgba(138, 145, 180, 0.14);
+      border: 1px solid rgba(138, 145, 180, 0.2);
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .match-beer-note {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #E8EAF2;
+      margin: 0 0 10px;
+    }
+    .match-beer-reason {
+      font-size: 13.5px;
+      line-height: 1.5;
+      font-style: italic;
+      color: #8A91B4;
+      margin: 0;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(138, 145, 180, 0.25);
+    }
+    .match-beer-reason::before { content: "“"; color: #F2A93B; font-style: normal; }
+    .match-beer-reason::after { content: "”"; color: #F2A93B; font-style: normal; }
+
+    .match-punchline {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #F2A93B;
+      line-height: 1.5;
+      margin: 2px 0 14px;
+      padding: 14px 16px;
+      background: rgba(242, 169, 59, 0.08);
+      border: 1px dashed rgba(242, 169, 59, 0.35);
+      border-radius: 16px;
+      animation: match-fadeup 0.5s ease 0.34s both;
+    }
+
+    .match-again {
+      display: block;
+      width: 100%;
+      padding: 15px 18px;
+      margin-top: 4px;
+      background: linear-gradient(135deg, #0065BF, #0052A0);
+      color: #FFFFFF;
+      font: inherit;
+      font-size: 14.5px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      box-shadow: 0 6px 18px rgba(0, 101, 191, 0.3);
+      transition: transform 0.16s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      animation: match-fadeup 0.5s ease 0.4s both;
+    }
+    .match-again:active { transform: scale(0.97); filter: brightness(1.12); }
+    .match-again:focus-visible { outline: 2px solid #F2A93B; outline-offset: 2px; }
+
+    @keyframes match-fadeup {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .match-section * { animation: none !important; transition: none !important; }
+    }
+  </style>
+
+  <p class="match-kicker">Match Day Prep · Boston &amp; Miami</p>
+  <h2 class="match-title">Find Your American Pint</h2>
+  <p class="match-sub">Tap what you drink back home and we'll sort your round on both sides of the trip &mdash; one for Foxborough, one for the Florida heat.</p>
+
+  <p class="match-rail-label">What's your usual?</p>
+  <div class="match-rail" id="match-rail" role="group" aria-label="Pick your Scottish beer"></div>
+
+  <div class="match-result" id="match-result" role="region" aria-live="polite" aria-label="Your American pint matches"></div>
+
+  <script>
+    (function () {
+      var BEERS = [
+        {
+          id: "tennents",
+          name: "Tennent's Lager",
+          emoji: "🍺",
+          style: "Lager · 4.0%",
+          boston: {
+            name: "Jack's Abby House Lager",
+            brewery: "Jack's Abby, Framingham MA",
+            beerStyle: "Helles Lager", abv: "5.2%",
+            note: "Crisp, clean and bready — a proper cold golden pint.",
+            reason: "Closest thing to a cold Tennent's this side of the Atlantic."
+          },
+          miami: {
+            name: "La Rubia",
+            brewery: "Wynwood Brewing, Miami FL",
+            beerStyle: "Blonde Ale", abv: "5.0%",
+            note: "Light, golden and easy — built for drinking in the sun.",
+            reason: "The Tennent's of Wynwood. Order two, it's 32 degrees out."
+          }
+        },
+        {
+          id: "punk",
+          name: "BrewDog Punk IPA",
+          emoji: "🤘",
+          style: "IPA · 5.4%",
+          boston: {
+            name: "Harpoon IPA",
+            brewery: "Harpoon Brewery, Boston MA",
+            beerStyle: "New England IPA (OG)", abv: "5.9%",
+            note: "Floral, citrusy and bitter — Boston's original everyday IPA.",
+            reason: "Punk before Punk was Punk. The brewery's on the harbour, too."
+          },
+          miami: {
+            name: "Jai Alai IPA",
+            brewery: "Cigar City, Tampa FL (everywhere in FL)",
+            beerStyle: "American IPA", abv: "7.5%",
+            note: "Big tangerine and caramel punch in a famous orange can.",
+            reason: "Florida's loudest IPA for Scotland's loudest beer. Mind the 7.5%."
+          }
+        },
+        {
+          id: "innisgunn",
+          name: "Innis &amp; Gunn Original",
+          emoji: "🥃",
+          style: "Oaked Ale · 6.6%",
+          boston: {
+            name: "Samuel Adams Boston Lager",
+            brewery: "Boston Beer Co., Boston MA",
+            beerStyle: "Vienna Lager", abv: "5.0%",
+            note: "Toffee and caramel malt with a tidy noble-hop finish.",
+            reason: "All the toffee smoothness, none of the barrel — and it's poured in every bar in town."
+          },
+          miami: {
+            name: "Floridian Hefeweizen",
+            brewery: "Funky Buddha, Oakland Park FL",
+            beerStyle: "Hefeweizen", abv: "5.2%",
+            note: "Soft banana, vanilla and clove — sweet, smooth, sunny.",
+            reason: "Vanilla notes without the oak. The nearest Miami gets to your dessert pint."
+          }
+        },
+        {
+          id: "belhaven",
+          name: "Belhaven Best",
+          emoji: "🫏",
+          style: "Session Ale · 3.2%",
+          boston: {
+            name: "Notch Session Pils",
+            brewery: "Notch Brewing, Salem MA",
+            beerStyle: "Czech Pilsner", abv: "4.0%",
+            note: "Snappy, soft and properly sessionable — served in half-litres.",
+            reason: "America's session-beer specialists. The only brewery here that respects a 3-pint lunch."
+          },
+          miami: {
+            name: "Hialeah",
+            brewery: "Unbranded Brewing, Hialeah FL",
+            beerStyle: "Premium Lager", abv: "4.8%",
+            note: "Smooth, unfussy, crushable lager from Miami's brewing barrio.",
+            reason: "Smooth and steady, nae drama — the Best of Hialeah."
+          }
+        },
+        {
+          id: "mcewans",
+          name: "McEwan's Export",
+          emoji: "🦁",
+          style: "Scotch Ale · 4.5%",
+          boston: {
+            name: "Smoke &amp; Dagger",
+            brewery: "Jack's Abby, Framingham MA",
+            beerStyle: "Black Lager", abv: "5.8%",
+            note: "Dark malt, light smoke, chocolate edges — drinks lighter than it looks.",
+            reason: "Dark, sweet and smooth like your da's pint, with a wee campfire twist."
+          },
+          miami: {
+            name: "Pop's Porter",
+            brewery: "Wynwood Brewing, Miami FL",
+            beerStyle: "Robust Porter", abv: "6.2%",
+            note: "Award-winning chocolate-and-coffee porter, velvet finish.",
+            reason: "A medal-winning dark pint in 30-degree heat. McEwan's would approve."
+          }
+        },
+        {
+          id: "joker",
+          name: "Joker IPA",
+          emoji: "🃏",
+          style: "IPA · 5.0%",
+          boston: {
+            name: "Santilli",
+            brewery: "Night Shift, Everett MA",
+            beerStyle: "American IPA", abv: "6.0%",
+            note: "Bright, juicy and balanced — Boston's friendliest IPA.",
+            reason: "Same trick as the Joker: hoppy enough to be interesting, easy enough for a full card of matches."
+          },
+          miami: {
+            name: "Mega Mix",
+            brewery: "M.I.A. Beer Co., Doral FL",
+            beerStyle: "Juicy Pale Ale", abv: "5.5%",
+            note: "Tropical, citrusy and soft — a pale ale with Miami bass.",
+            reason: "Williams Bros energy, 305 area code."
+          }
+        },
+        {
+          id: "darkisland",
+          name: "Dark Island",
+          emoji: "🌑",
+          style: "Dark Ale · 4.6%",
+          boston: {
+            name: "Boston Irish Stout",
+            brewery: "Harpoon Brewery, Boston MA",
+            beerStyle: "Dry Irish Stout", abv: "4.3%",
+            note: "Roasty, dry and smooth — a proper dark session pint.",
+            reason: "Orkney's brooding islander meets Boston's friendliest stout. Same mood, different accent."
+          },
+          miami: {
+            name: "Maple Bacon Coffee Porter",
+            brewery: "Funky Buddha, Oakland Park FL",
+            beerStyle: "Specialty Porter", abv: "6.4%",
+            note: "A cult-classic Florida dark beer: coffee, maple, a whisper of smoke.",
+            reason: "Dark, rich and a wee bit mad — the Floridian take on an Orkney evening."
+          }
+        },
+        {
+          id: "buckfast",
+          name: "Buckfast",
+          sub: "(we know, not a beer)",
+          emoji: "⛪",
+          style: "Tonic Wine · 15%",
+          joke: true,
+          boston: {
+            name: "Dunkin' espresso + a Sam Adams chaser",
+            brewery: "Any Dunkin', literally every corner of Boston",
+            beerStyle: "Caffeine & Consequences", abv: "??%",
+            note: "Maximum caffeine, maximum patriotism, zero monks involved.",
+            reason: "Boston runs on Dunkin'. You run on Bucky. It's the same energy, legally distinct."
+          },
+          miami: {
+            name: "A cafecito and a prayer",
+            brewery: "Any ventanita, Little Havana",
+            beerStyle: "Cuban Rocket Fuel", abv: "0% (spiritually 15%)",
+            note: "Thimble-sized, sledgehammer-strength Cuban coffee at a walk-up window.",
+            reason: "Closest legal substitute for the tonic. Drink it standing up, like you mean it."
+          },
+          punchline: "There is no Buckfast equivalent. America is not ready."
+        }
+      ];
+
+      var rail = document.getElementById("match-rail");
+      var result = document.getElementById("match-result");
+      var current = null;
+
+      function esc(s) { return s; } /* strings are author-controlled; entities pre-escaped */
+
+      function cityBlock(cityClass, cityLabel, b) {
+        return (
+          '<div class="match-city ' + cityClass + '">' +
+            '<span class="match-city-tag">' + cityLabel + '</span>' +
+            '<h3 class="match-beer-name">' + esc(b.name) + '</h3>' +
+            '<p class="match-beer-brewery">' + esc(b.brewery) + '</p>' +
+            '<div class="match-pills">' +
+              '<span class="match-pill">' + esc(b.beerStyle) + '</span>' +
+              '<span class="match-pill">' + esc(b.abv) + ' ABV</span>' +
+            '</div>' +
+            '<p class="match-beer-note">' + esc(b.note) + '</p>' +
+            '<p class="match-beer-reason">' + esc(b.reason) + '</p>' +
+          '</div>'
+        );
+      }
+
+      function render(beer) {
+        var html =
+          '<div class="match-result-head">' +
+            '<span class="match-result-head-line"></span>' +
+            '<span class="match-result-head-text">Your order, <strong>' + beer.name + '</strong> fan</span>' +
+            '<span class="match-result-head-line"></span>' +
+          '</div>' +
+          cityBlock("match-city--boston", "Boston &middot; Gillette Stadium", beer.boston) +
+          cityBlock("match-city--miami", "Miami &middot; Hard Rock Stadium", beer.miami) +
+          (beer.punchline ? '<p class="match-punchline">' + beer.punchline + '</p>' : '') +
+          '<button type="button" class="match-again" id="match-again-btn">&#8635; &nbsp;Pick again</button>';
+
+        result.innerHTML = html;
+        result.classList.add("match-result--open");
+
+        document.getElementById("match-again-btn").addEventListener("click", reset);
+
+        /* let the open frame paint, then bring the result into view */
+        requestAnimationFrame(function () {
+          result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+      }
+
+      function select(beer, cardEl) {
+        if (current === beer.id) return;
+        current = beer.id;
+        var cards = rail.querySelectorAll(".match-card");
+        for (var i = 0; i < cards.length; i++) {
+          cards[i].setAttribute("aria-pressed", "false");
+        }
+        cardEl.setAttribute("aria-pressed", "true");
+        cardEl.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+
+        /* re-render so entrance animations replay on every pick */
+        result.classList.remove("match-result--open");
+        render(beer);
+      }
+
+      function reset() {
+        current = null;
+        result.classList.remove("match-result--open");
+        result.innerHTML = "";
+        var cards = rail.querySelectorAll(".match-card");
+        for (var i = 0; i < cards.length; i++) {
+          cards[i].setAttribute("aria-pressed", "false");
+        }
+        rail.scrollTo({ left: 0, behavior: "smooth" });
+        rail.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      /* build the rail */
+      BEERS.forEach(function (beer) {
+        var card = document.createElement("button");
+        card.type = "button";
+        card.className = "match-card" + (beer.joke ? " match-card--joke" : "");
+        card.setAttribute("aria-pressed", "false");
+        card.innerHTML =
+          '<span class="match-card-emoji" aria-hidden="true">' + beer.emoji + '</span>' +
+          '<span class="match-card-name">' + beer.name +
+            (beer.sub ? '<br><span style="font-weight:600;font-size:11.5px;color:#8A91B4;">' + beer.sub + '</span>' : '') +
+          '</span>' +
+          '<span class="match-card-style">' + beer.style + '</span>';
+        card.addEventListener("click", function () { select(beer, card); });
+        rail.appendChild(card);
+      });
+    })();
+  </script>
+</section>
